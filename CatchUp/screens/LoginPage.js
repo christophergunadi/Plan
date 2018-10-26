@@ -1,38 +1,20 @@
 import React, { Component } from 'react';
-import {
-				StyleSheet,
-				AppRegistry,
-				Text,
-				TextInput,
-				View,
-				Image,
-        TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, AppRegistry, Text, TextInput, View, Image, TouchableOpacity, } from 'react-native';
 import * as firebase from 'firebase';
-import { Input } from './Input';
+import { Input } from './../components/Input';
+import ApiKeys from './../constants/ApiKeys';
 
 export default class LoginPage extends React.Component {
-	componentWillMount() {
-		const firebaseConfig = {
-			apiKey: 'AIzaSyAfRGN_oLvAOU0OhlBQ_ydNX6fRmnwFi7c',
-			authDomain: 'catchup-8a114.firebaseapp.com',
-		}
 
-		firebase.initializeApp(firebaseConfig);
-	}
-	
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-	// 	  username: '',
-	// 		password: '',
-	// 	};
-  // }
+  constructor(props) {
+    super(props);
 
-	state = {
-		username: '',
-		password: '',
-	}
+    this.state = {
+		  username: '',
+			password: '',
+		};
+
+  }
 
 	login() {
     //login api call
@@ -41,7 +23,7 @@ export default class LoginPage extends React.Component {
   render() {
     return (
 			<View>
-			  <Image source={require('./logo.png')} />
+			  <Image source={require('./../assets/logo.png')} />
 				<Input
 					placeholder="Username"
 					label="Username"
