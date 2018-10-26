@@ -14,8 +14,10 @@ export default class SignUpPage extends React.Component {
 			password: '',
       repeatPassword: '',
 		};
-		if(!firebase.apps.length)
-		firebase.initializeApp(ApiKeys.firebaseConfig);
+  }
+
+  static navigationOptions = {
+    title: 'Sign up',
   }
 
   onSignUpPress = () => {
