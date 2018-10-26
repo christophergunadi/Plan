@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, View, Image, Button } from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 import ApiKeys from './../constants/ApiKeys';
+import AppNavigator from './../navigation/AppNavigator'
 
 export default class LoginPage extends React.Component {
 
@@ -14,6 +15,10 @@ export default class LoginPage extends React.Component {
 			password: '',
 		};
 
+  }
+
+  static navigationOptions = {
+    title: 'Login',
   }
 
 	onLoginPress = () => {
@@ -42,7 +47,7 @@ export default class LoginPage extends React.Component {
 				/>
 
         /* I'm not sure why I cannot make it look like a normal button here */
-        <Button style={styles.loginButton} title="Login" onPress={this.onLoginPress} />
+        <Button title="Login" onPress={this.onLoginPress} />
         <Button title="Sign Up" onPress={this.onSignUpPress} />
 
 			</View>
