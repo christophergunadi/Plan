@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AppRegistry, Text, TextInput, View, Image, TouchableOpacity, } from 'react-native';
+import { StyleSheet, TextInput, View, Image, Button} from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 import ApiKeys from './../constants/ApiKeys';
@@ -12,35 +12,43 @@ export default class SignUpPage extends React.Component {
     this.state = {
 		  username: '',
 			password: '',
+      repeatPassword: '',
 		};
 		if(!firebase.apps.length)
 		firebase.initializeApp(ApiKeys.firebaseConfig);
   }
 
-	signUp() {
-    //signUp api call
-	}
+  onSignUpPress = () => {
+
+  }
+
+  onBackPress = () => {
+    this.props.navigation.navigate("Login");
+  }
 
   render() {
     return (
 			<View>
 			  <Image source={require('./../assets/logo.png')} />
 				<Input
+          value={this.state.username}
 					placeholder="Username"
-					label="Username"
 					onChangeText={(username) => this.setState({username})}
-					value={this.state.username}
 				/>
 				<Input
+          value={this.state.password}
 					placeholder="Password"
-					label="Password"
 					onChangeText={(password) => this.setState({password})}
 					secureTextEntry
-					value={this.state.password}
 				/>
-				<TouchableOpacity style = {styles.loginButton} onPress= {() => this.signUp()}>
-					<Text style = {styles.loginText}> Sign Up </Text>
-				</TouchableOpacity>
+        <Input
+          value={this.state.repeatPassword}
+					placeholder="Repeat password"
+					onChangeText={(password) => this.setState({repeatPassword})}
+					secureTextEntry
+				/>
+				<Button title="Sign Up" onPress={this.onSignUpPress} />
+        <Button title="back" onPress={this.onBackPress} />
 			</View>
     );
   }

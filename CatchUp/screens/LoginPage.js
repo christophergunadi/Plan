@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AppRegistry, Text, TextInput, View, Image, TouchableOpacity, } from 'react-native';
+import { StyleSheet, TextInput, View, Image, Button } from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 import ApiKeys from './../constants/ApiKeys';
@@ -16,9 +16,14 @@ export default class LoginPage extends React.Component {
 
   }
 
-	login() {
-    //login api call
+	onLoginPress = () => {
+
 	}
+
+  onSignUpPress = () => {
+    this.props.navigation.navigate("SignUp");
+  }
+
 
   render() {
     return (
@@ -26,20 +31,20 @@ export default class LoginPage extends React.Component {
 			  <Image source={require('./../assets/logo.png')} />
 				<Input
 					placeholder="Username"
-					label="Username"
 					onChangeText={(username) => this.setState({username})}
 					value={this.state.username}
 				/>
 				<Input
 					placeholder="Password"
-					label="Password"
 					onChangeText={(password) => this.setState({password})}
-					secureTextEntry
+					secureTextEntry={true}
 					value={this.state.password}
 				/>
-				<TouchableOpacity style = {styles.loginButton} onPress= {() => this.login()}>
-					<Text style = {styles.loginText}> Login </Text>
-				</TouchableOpacity>
+
+        /* I'm not sure why I cannot make it look like a normal button here */
+        <Button style={styles.loginButton} title="Login" onPress={this.onLoginPress} />
+        <Button title="Sign Up" onPress={this.onSignUpPress} />
+
 			</View>
     );
   }
