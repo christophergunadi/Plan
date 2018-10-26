@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, View, Image, Button} from 'react-native';
+import { StyleSheet, TextInput, View, Image, Button, Alert} from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 import ApiKeys from './../constants/ApiKeys';
+import AppNavigator from './../navigation/AppNavigator'
 
 export default class SignUpPage extends React.Component {
 
@@ -10,7 +11,7 @@ export default class SignUpPage extends React.Component {
     super(props);
 
     this.state = {
-		  username: '',
+		  email: '',
 			password: '',
       repeatPassword: '',
 		};
@@ -21,7 +22,14 @@ export default class SignUpPage extends React.Component {
   }
 
   onSignUpPress = () => {
-    
+    if (this.state.password !== this.state.repeatPassword) {
+      Alert.alert("Passwords do not match");
+      return;
+    }
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then( (user) => {
+        this.props.navigation.navigate('App');
+      }, (error) => {Alert.alert(error.message)});
   }
 
   onBackPress = () => {
@@ -33,9 +41,9 @@ export default class SignUpPage extends React.Component {
 			<View>
 			  <Image source={require('./../assets/logo.png')} />
 				<Input
-          value={this.state.username}
-					placeholder="Username"
-					onChangeText={(username) => this.setState({username})}
+          value={this.state.email}
+					placeholder="email"
+					onChangeText={(email) => this.setState({email})}
 				/>
 				<Input
           value={this.state.password}
@@ -46,7 +54,7 @@ export default class SignUpPage extends React.Component {
         <Input
           value={this.state.repeatPassword}
 					placeholder="Repeat password"
-					onChangeText={(password) => this.setState({repeatPassword})}
+					onChangeText={(repeatPassword) => this.setState({repeatPassword})}
 					secureTextEntry
 				/>
 				<Button title="Sign Up" onPress={this.onSignUpPress} />
