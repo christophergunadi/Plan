@@ -3,12 +3,21 @@
 
 // import { Notifications } from 'expo';
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 // import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 import LoginPage from './../screens/LoginPage';
 import SignUpPage from './../screens/SignUpPage';
 
+export default createSwitchNavigator({
+  // You could add another route here for authentication.
+  // Read more at https://reactnavigation.org/docs/en/auth-flow.html
+  Login: LoginPage,
+  SignUp: SignUpPage,
+  Main: MainTabNavigator,
+});
+
+/*
 const RootStackNavigator = createStackNavigator(
   {
     Login: { screen: LoginPage },
@@ -53,3 +62,4 @@ export default class RootNavigator extends React.Component {
   //   console.log(`Push notification ${origin} with data: ${JSON.stringify(data)}`);
   // };
 }
+*/
