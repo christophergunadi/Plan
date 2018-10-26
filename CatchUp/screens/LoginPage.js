@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, View, Image, Button } from 'react-native';
+import { StyleSheet, TextInput, View, Image, Button, Alert } from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 import ApiKeys from './../constants/ApiKeys';
@@ -11,7 +11,7 @@ export default class LoginPage extends React.Component {
     super(props);
 
     this.state = {
-		  username: '',
+		  email: '',
 			password: '',
 		};
 
@@ -22,7 +22,10 @@ export default class LoginPage extends React.Component {
   }
 
 	onLoginPress = () => {
-
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then( (user) => {
+        this.props.navigation.navigate('App');
+      }, (error) => {Alert.alert(error.message)});
 	}
 
   onSignUpPress = () => {
@@ -35,9 +38,9 @@ export default class LoginPage extends React.Component {
 			<View>
 			  <Image source={require('./../assets/logo.png')} />
 				<Input
-					placeholder="Username"
-					onChangeText={(username) => this.setState({username})}
-					value={this.state.username}
+					placeholder="email"
+					onChangeText={(email) => this.setState({email})}
+					value={this.state.email}
 				/>
 				<Input
 					placeholder="Password"

@@ -10,7 +10,7 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      isLoadingComplete: false,
+      // isLoadingComplete: false,
       isAuthenticationReady: false,
       isAuthenticated: false,
     };
@@ -29,6 +29,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    // return (this.state.isAuthenticated) ? this.props.navigation.navigate('App') : this.props.navigation.navigate('Auth');
     return <AppNavigator />
     // if ( (!this.state.isLoadingComplete || !this.state.isAuthenticationReady) && !this.props.skipLoadingScreen) {
     //   return (
