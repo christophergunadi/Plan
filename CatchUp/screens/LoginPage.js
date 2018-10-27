@@ -1,3 +1,4 @@
+import Expo from 'expo';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, View, Image, Button, Alert } from 'react-native';
 import * as firebase from 'firebase';
@@ -13,13 +14,35 @@ export default class LoginPage extends React.Component {
     this.state = {
 		  email: '',
 			password: '',
+			token: '',
 		};
 
   }
 
   static navigationOptions = {
     title: 'Login',
-  }
+	}
+	
+	signInWithGoogle = async () => {
+		try {
+			Expo.Google.logInAsync({
+				iosClientId: '580091065854-pl73mvprbfdp86mtg1mjc97376h7785i.apps.googleusercontent.com',
+			}).then( (result) => {
+				if (result.type === 'success') {
+					this.setState({token: result.accessToken});
+					firebase.auth().signInWithCredential();
+					console.log(this.state.token);
+				} else {
+					console.log("Cannot retrieve access token");
+				}
+			})
+		} catch (e) {
+			return {error: true};
+		}
+	}	
+
+	signInToFirebase
+		
 
 	onLoginPress = () => {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -52,6 +75,7 @@ export default class LoginPage extends React.Component {
         /* I'm not sure why I cannot make it look like a normal button here */
         <Button title="Login" onPress={this.onLoginPress} />
         <Button title="Sign Up" onPress={this.onSignUpPress} />
+				<Button title="Google Sign-in" onPress={this.signInWithGoogle} />
 
 			</View>
     );
