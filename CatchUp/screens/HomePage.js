@@ -7,18 +7,39 @@ export default class HomePage extends React.Component {
     super(props);
   }
 
+
+  getLocalCalendar = async () => {
+	  const { Permissions } = Expo;
+	  const { status, expires, permissions } = await Permissions.askAsync(Permissions.CALENDAR)
+	  if (status === 'granted') {
+			const calendar = await Expo.Calendar.getCalendarsAsync();
+			const ids = calendar.map(cal => cal.id);
+						console.log(ids);
+	  } 
+	}
+		
   render() {
     return (
-			<View>
+			<View style={styles.container}>
 			  <Text>
           This is Home :) Welcome to Catch Up!
         </Text>
+				<TouchableOpacity
+					onPress={() => this.getLocalCalendar()}
+				>
+				 <Text> Press ME! </Text> 
+				</TouchableOpacity>
 			</View>
     );
   }
 }
 
 const styles = StyleSheet.create ({
+	container : {
+		flex: 1, 
+	  alignItems: 'center',
+	  justifyContent: 'center', 
+	}
 
 
 });
