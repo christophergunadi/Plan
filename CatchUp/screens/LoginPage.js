@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Button, Alert } from 'react-native';
+import { StyleSheet, View, Image, Button, Alert, TouchableOpacity, Text } from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 
@@ -17,7 +17,8 @@ export default class LoginPage extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Login',
+		title: 'Login',
+		header: null,
 	}
 
 	// onAuthStateChanged = () => {
@@ -58,33 +59,29 @@ export default class LoginPage extends React.Component {
     return (
 			<View style={{flex: 1, alignItems: 'center', justifyContent: "center"}}>
 			<View style={{alignItems: 'center', justifyContent: "center"}}>
-			  <Image source={require('./../assets/logo.png')} />
+			  <Image source={require('./../assets/logo.png')} style={{borderRadius: 20, marginBottom: 20}}/>
 			</View>
 
-			<View style={{alignItems: 'center', justifyContent: "center"}}>
-				<Input
-					placeholder="Email"
-					onChangeText={(email) => this.setState({email})}
-					value={this.state.email}
-				/>
-			</View>
-			<View style={{alignItems: 'center', justifyContent: "center"}}>
-				<Input
-					placeholder="Password"
-					onChangeText={(password) => this.setState({password})}
-					secureTextEntry={true}
-					value={this.state.password}
-				/>
-			</View>
-				
-			<View style={styles.loginButton}>
-        <Button containerStyle={styles.loginButton} title="Login" onPress={this.onLoginPress} />
-			</View>
-			<View style={styles.loginButton}>
-        <Button title="Sign Up" onPress={this.onSignUpPress} />
-			</View>
-			</View>
+			<Input
+				placeholder="Email"
+				onChangeText={(email) => this.setState({email})}
+				value={this.state.email}
+			/>
+			<Input
+				placeholder="Password"
+				onChangeText={(password) => this.setState({password})}
+				secureTextEntry={true}
+				value={this.state.password}
+			/>
 			
+			<TouchableOpacity style={styles.loginButton} onPress={this.onLoginPress}>
+			  <Text style={styles.loginText}>LOGIN</Text>
+			</TouchableOpacity>
+				
+			<TouchableOpacity style={styles.loginButton} onPress={this.onSignUpPress}>
+				<Text style={styles.loginText}>SIGN UP</Text>
+			</TouchableOpacity>
+			</View>
     );
   }
 }
@@ -97,6 +94,7 @@ const styles = StyleSheet.create ({
   	borderRadius: 30,
 		alignItems: 'center',
 		justifyContent:'center',
+		width: 300,
 	},
 	loginText: {
 		color: 'black',

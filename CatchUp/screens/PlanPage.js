@@ -1,13 +1,24 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, } from 'react-native';
-
-
+import React from 'react';
+import { StyleSheet, Text, Platform, View, Image, TouchableOpacity, Alert, } from 'react-native';
+import * as firebase from 'firebase';
+import TabBarIcon from '../components/TabBarIcon'
 
 export default class PlanPage extends React.Component {
 
   constructor(props) {
     super(props);
   }
+
+  static navigationOptions = {
+    tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+          `ios-paper${focused ? '' : '-outline'}`
+      }
+    />
+  ),
+	}
   
 		
   render() {

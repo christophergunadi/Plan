@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, View, Image, Button, Alert} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, Alert, Text} from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
 import ApiKeys from './../constants/ApiKeys';
@@ -18,7 +18,8 @@ export default class SignUpPage extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Sign up',
+		title: 'Sign up',
+		header: null,
   }
 
   onSignUpPress = () => {
@@ -40,7 +41,7 @@ export default class SignUpPage extends React.Component {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: "center"}}>
 			<View style={{alignItems: 'center', justifyContent: "center"}}>
-        <Image source={require('./../assets/logo.png')} />
+        <Image source={require('./../assets/logo.png')} style={{borderRadius: 20, marginBottom: 20}} />
 			</View>
 
 			<View style={{alignItems: 'center', justifyContent: "center"}}>
@@ -67,12 +68,14 @@ export default class SignUpPage extends React.Component {
 				/>
 			</View>
 				
-			<View style={styles.loginButton}>
-        <Button title="Sign Up" onPress={this.onSignUpPress} />
-			</View>
-			<View style={styles.loginButton}>
-        <Button title="back" onPress={this.onBackPress} />
-			</View>
+			<TouchableOpacity style={styles.loginButton} onPress={this.onSignUpPress}>
+			  <Text style={styles.loginText}>SIGN UP</Text>
+			</TouchableOpacity>
+				
+			<TouchableOpacity style={styles.loginButton} onPress={this.onBackPress}>
+				<Text style={styles.loginText}>BACK</Text>
+			</TouchableOpacity>
+
 			</View>
     );
   }
@@ -86,10 +89,15 @@ const styles = StyleSheet.create ({
   	borderRadius: 30,
 		alignItems: 'center',
 		justifyContent:'center',
+		width: 300,
 	},
 	loginText: {
 		color: 'black',
 		fontSize: 20,
 	},
+	logo: {
+		flex: 1,
+		resizeMode: 'center',
+	}
 
 });

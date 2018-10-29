@@ -1,18 +1,25 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Alert, } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, Platform, View, Image, TouchableOpacity, Alert, } from 'react-native';
 import * as firebase from 'firebase';
+import TabBarIcon from '../components/TabBarIcon'
 
 export default class HomePage extends React.Component {
 
   constructor(props) {
 		super(props);
 		
-		// firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
+	}	
+
+	static navigationOptions = {
+    tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+          `ios-home${focused ? '' : '-outline'}`
+      }
+    />
+  ),
 	}
-	
-	// onAuthStateChanged = () => {
-  //   this.props.navigation.navigate('Auth');
-  // }
 
   getLocalCalendar = async () => {
 	  const { Permissions } = Expo;
@@ -36,9 +43,6 @@ export default class HomePage extends React.Component {
   render() {
     return (
 			<View style={styles.container}>
-			  <Text>
-          This is Home :) Welcome to #plan.
-        </Text>
 				<TouchableOpacity onPress={() => this.getLocalCalendar()}>
 					<Image 
 					  style={styles.logo}
@@ -66,6 +70,8 @@ const styles = StyleSheet.create ({
   	borderRadius: 60,
 		alignItems: 'baseline' ,
 		justifyContent:'center',
+		marginTop: 20,
+		paddingHorizontal: 50,
 	},
 	logo: {
 		justifyContent: 'center',
