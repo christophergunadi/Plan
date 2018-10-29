@@ -20,13 +20,13 @@ export default class App extends React.Component {
       firebase.initializeApp(ApiKeys.firebaseConfig);
     }
 
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
+    // firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
   }
 
-  onAuthStateChanged = (user) => {
-    this.setState({isAuthenticationReady: true});
-    this.setState({isAuthenticated: !!user});
-  }
+  // onAuthStateChanged = (user) => {
+  //   this.setState({isAuthenticationReady: true});
+  //   this.setState({isAuthenticated: !!user});
+  // }
 
   render() {
     // return (this.state.isAuthenticated) ? this.props.navigation.navigate('App') : this.props.navigation.navigate('Auth');
@@ -52,23 +52,23 @@ export default class App extends React.Component {
       // </View>
   }
 
-  _loadResourcesAsync = async () => {
-    return Promise.all([
-      Asset.loadAsync([
-        require('./assets/logo.png'),
-      ]),
-    ]);
-  };
+  // _loadResourcesAsync = async () => {
+  //   return Promise.all([
+  //     Asset.loadAsync([
+  //       require('./assets/logo.png'),
+  //     ]),
+  //   ]);
+  // };
 
-  _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.warn(error);
-  };
+  // _handleLoadingError = error => {
+  //   // In this case, you might want to report the error to your error
+  //   // reporting service, for example Sentry
+  //   console.warn(error);
+  // };
 
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
-  };
+  // _handleFinishLoading = () => {
+  //   this.setState({ isLoadingComplete: true });
+  // };
 }
 
 

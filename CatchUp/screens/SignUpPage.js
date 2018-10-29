@@ -38,27 +38,41 @@ export default class SignUpPage extends React.Component {
 
   render() {
     return (
-			<View>
-			  <Image source={require('./../assets/logo.png')} />
+      <View style={{flex: 1, alignItems: 'center', justifyContent: "center"}}>
+			<View style={{alignItems: 'center', justifyContent: "center"}}>
+        <Image source={require('./../assets/logo.png')} />
+			</View>
+
+			<View style={{alignItems: 'center', justifyContent: "center"}}>
 				<Input
           value={this.state.email}
 					placeholder="email"
 					onChangeText={(email) => this.setState({email})}
 				/>
+			</View>
+			<View style={{alignItems: 'center', justifyContent: "center"}}>
 				<Input
-          value={this.state.password}
 					placeholder="Password"
 					onChangeText={(password) => this.setState({password})}
-					secureTextEntry
+					secureTextEntry={true}
+					value={this.state.password}
 				/>
+			</View>
+      <View style={{alignItems: 'center', justifyContent: "center"}}>
         <Input
           value={this.state.repeatPassword}
 					placeholder="Repeat password"
 					onChangeText={(repeatPassword) => this.setState({repeatPassword})}
 					secureTextEntry
 				/>
-				<Button title="Sign Up" onPress={this.onSignUpPress} />
+			</View>
+				
+			<View style={styles.loginButton}>
+        <Button title="Sign Up" onPress={this.onSignUpPress} />
+			</View>
+			<View style={styles.loginButton}>
         <Button title="back" onPress={this.onBackPress} />
+			</View>
 			</View>
     );
   }

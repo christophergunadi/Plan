@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
 	  borderTopLeftRadius: 8,
 	  borderTopRightRadius: 8,
 		padding: 5,
-		margin: 5,
+    margin: 5,
+    justifyContent: "center",
   }
 })
 
