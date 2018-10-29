@@ -25,9 +25,20 @@ export default class HomePage extends React.Component {
 	  const { Permissions } = Expo;
 	  const { status, expires, permissions } = await Permissions.askAsync(Permissions.CALENDAR)
 	  if (status === 'granted') {
-			const calendar = await Expo.Calendar.getCalendarsAsync();
-			const ids = calendar.map(cal => cal.id);
-						console.log(ids);
+			const calendars = await Expo.Calendar.getCalendarsAsync();
+			const calendarIds = calendars.map(a => a.id);
+			console.log(calendarIds);
+			const events = await Expo.Calendar.getEventsAsync(calendarIds, new Date(2018, 9), new Date(2018, 11));
+
+			console.log(events.map(a => {return {allDay: a.allDay, endDate: a.endDate, startDate: a.startDate, title: a.title};}));
+			// for (var i = 0; i < calendars.length; i++) {
+			// 	calendar = calendars[i];
+			// 	console.log(await Expo.Calendar.getEventsAsync())
+			// }
+			// calendar.id
+			// console.log(calendar);
+			// const ids = calendar.map(cal => cal.id);
+			// 			console.log(ids);
 	  } 
 	}
 
