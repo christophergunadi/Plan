@@ -13,35 +13,12 @@ export default class LoginPage extends React.Component {
 			password: '',
 		};
 		
-		// firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
   }
 
   static navigationOptions = {
 		title: 'Login',
 		header: null,
 	}
-
-	// onAuthStateChanged = () => {
-  //   this.props.navigation.navigate('App');
-  // }
-	
-	// async signInWithGoogleAsync() {
-	// 	try {
-	// 		const result = await Expo.Google.logInAsync({
-	// 			iosClientId: '580091065854-pl73mvprbfdp86mtg1mjc97376h7785i.apps.googleusercontent.com',
-	// 			scopes: ['profile', 'email'],
-	// 		});
-
-	// 		if (result.type === 'success') {
-	// 			const credential = firebase.auth.GoogleAuthProvider(result.accessToken);
-	// 			firebase.auth().signInWithCredential(credential);
-	// 		} else {
-	// 			return {cancelled: true};
-	// 		}
-	// 	} catch(e) {
-	// 		return {error: true};
-	// 	}
-	// }
 
 	onLoginPress = () => {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)

@@ -1,12 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, Platform, View, Image, TouchableOpacity, Alert, } from 'react-native';
-import * as firebase from 'firebase';
+import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 import TabBarIcon from '../components/TabBarIcon'
+import {List} from '../components/List'
+import { Input } from './../components/Input';
 
 export default class PlanPage extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      thing: '',
+    };
   }
 
   static navigationOptions = {
@@ -18,14 +23,29 @@ export default class PlanPage extends React.Component {
       }
     />
   ),
-	}
+  }
+  
+  onAddPress = () => {
+    List.push(this.state.thing);
+    console.log(List);
+  }
   
 		
   render() {
     return (
-		<View style={styles.container}>
-          <Text>#plan your day.</Text>
-		</View>
+      <View style={{flex: 1, alignItems: 'center', paddingTop: 30}}>
+
+			<Input
+				placeholder="Add thing to do"
+				onChangeText={(thing) => this.setState({thing})}
+				value={this.state.thing}
+			/>
+			
+			<TouchableOpacity style={styles.loginButton} onPress={this.onAddPress}>
+			  <Text style={styles.loginText}>Add</Text>
+			</TouchableOpacity>
+
+      </View>
     );
   }
 }
@@ -35,7 +55,21 @@ const styles = StyleSheet.create ({
 	  flex: 1, 
 	  alignItems: 'center',
 	  justifyContent: 'center', 
-	}
+	},
 
+  loginButton: {
+  	backgroundColor: '#CDC6C6',
+  	height: 40,
+    margin: 5,
+  	borderRadius: 30,
+		alignItems: 'center',
+		justifyContent:'center',
+		width: 300,
+  },
+  
+  loginText: {
+		color: 'black',
+		fontSize: 20,
+	},
 
 });
