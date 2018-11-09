@@ -7,7 +7,12 @@ export default class HomePage extends React.Component {
 
   constructor(props) {
 		super(props);
+
+		var calendarSlots = new Array(24).fill(0);
 		
+		this.state = {
+			slots: calendarSlots,
+		}
 	}	
 
 	static navigationOptions = {
@@ -23,14 +28,41 @@ export default class HomePage extends React.Component {
 
   getLocalCalendar = async () => {
 	  const { Permissions } = Expo;
-	  const { status, expires, permissions } = await Permissions.askAsync(Permissions.CALENDAR)
+		const { status, expires, permissions } = await Permissions.askAsync(Permissions.CALENDAR)
+		const currentDay = new Date();
+
 	  if (status === 'granted') {
 			const calendars = await Expo.Calendar.getCalendarsAsync();
 			const calendarIds = calendars.map(a => a.id);
-			console.log(calendarIds);
 			const events = await Expo.Calendar.getEventsAsync(calendarIds, new Date(2018, 9), new Date(2018, 11));
+			events = events.filter(a => {return !a.allDay})
 
-			console.log(events.map(a => {return {allDay: a.allDay, endDate: a.endDate, startDate: a.startDate, title: a.title};}));
+			// debugging console logs:
+			// console.log("returning events that don't last all day.");
+			// console.log(events.map(a => {return {allDay: a.allDay, endDate: a.endDate, startDate: a.startDate, title: a.title};}));
+
+			const startTimes = events.map(a => {
+				return new Date(a.startDate).getHours();
+			});
+			const endTimes = events.map(a => {
+				return new Date(a.endDate).getHours();
+			});
+
+
+			const slots = this.state.slots;
+			console.log(this.state.slots);
+			for (var i = 0; i < 24; i++) {
+				var start = startTimes[i];
+				var end = endTimes[i];
+				for (var j = start; j < end; j++) {
+					slots[j] = 1;
+				}
+			}
+			this.setState({
+				slots,
+			})
+			console.log(this.state.slots);
+
 			// for (var i = 0; i < calendars.length; i++) {
 			// 	calendar = calendars[i];
 			// 	console.log(await Expo.Calendar.getEventsAsync())
@@ -40,6 +72,21 @@ export default class HomePage extends React.Component {
 			// const ids = calendar.map(cal => cal.id);
 			// 			console.log(ids);
 	  } 
+	}
+
+	suggestTimes = () => {
+
+	}
+
+
+
+	onPlan = () => {
+		this.getLocalCalendar();
+
+
+
+
+
 	}
 
 	onSignOutPress = () => {
@@ -54,7 +101,7 @@ export default class HomePage extends React.Component {
   render() {
     return (
 			<View style={styles.container}>
-				<TouchableOpacity onPress={() => this.getLocalCalendar()}>
+				<TouchableOpacity onPress={() => this.onPlan()}>
 					<Image 
 					  style={styles.logo}
 					  source={require('./../assets/planButton.png')} 
