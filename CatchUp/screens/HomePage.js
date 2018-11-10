@@ -63,15 +63,6 @@ export default class HomePage extends React.Component {
 				slots,
 			})
 			console.log(this.state.slots);
-
-			// for (var i = 0; i < calendars.length; i++) {
-			// 	calendar = calendars[i];
-			// 	console.log(await Expo.Calendar.getEventsAsync())
-			// }
-			// calendar.id
-			// console.log(calendar);
-			// const ids = calendar.map(cal => cal.id);
-			// 			console.log(ids);
 	  } 
 	}
 
@@ -83,10 +74,6 @@ export default class HomePage extends React.Component {
 
 	onPlan = () => {
 		this.getLocalCalendar();
-
-
-
-
 
 	}
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
-import ApiKeys from './constants/ApiKeys';
+import ApiKeys from './constants/Fire';
 import AppNavigator from './navigation/AppNavigator';
 import * as firebase from 'firebase';
 

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, Alert, Text} from 'react-native';
 import * as firebase from 'firebase';
 import { Input } from './../components/Input';
-import ApiKeys from './../constants/ApiKeys';
-import AppNavigator from './../navigation/AppNavigator'
 
 export default class SignUpPage extends React.Component {
 

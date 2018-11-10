@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Picker, FlatList} from 'react-native';
 import TabBarIcon from '../components/TabBarIcon'
 import {List} from '../components/List'
 import { Input } from './../components/Input';
@@ -10,7 +10,8 @@ export default class PlanPage extends React.Component {
     super(props);
 
     this.state = {
-      thing: '',
+      task: '',
+      duration: 0,
     };
   }
 
@@ -24,26 +25,53 @@ export default class PlanPage extends React.Component {
     />
   ),
   }
-  
+
   onAddPress = () => {
-    List.push(this.state.thing);
+    List.push({task: this.state.task, duration: this.state.duration});
     console.log(List);
   }
   
 		
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', paddingTop: 30}}>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingTop: 30,
+      }}>
 
 			<Input
-				placeholder="Add thing to do"
-				onChangeText={(thing) => this.setState({thing})}
-				value={this.state.thing}
+				placeholder="Add task to do"
+				onChangeText={(task) => this.setState({task})}
+				value={this.state.task}
 			/>
+
+      
+      <Text style={styles.loginText}>Select duration: </Text>
+      <Picker
+        selectedValue={this.state.duration}
+        style={{ height: 200, width: 100}}
+        onValueChange={(itemValue) => this.setState({duration: itemValue})}>
+        <Picker.Item label="0 h" value={0}/>
+        <Picker.Item label="1 h" value={1}/>
+        <Picker.Item label="2 h" value={2}/>
+        <Picker.Item label="3 h" value={3}/>
+        <Picker.Item label="4 h" value={4}/>
+      </Picker>
+      
 			
 			<TouchableOpacity style={styles.loginButton} onPress={this.onAddPress}>
 			  <Text style={styles.loginText}>Add</Text>
 			</TouchableOpacity>
+
+      <FlatList
+        data={List}
+        renderItem={({item}) => <Text style={styles.item}>task: {item.task}</Text>}
+      />
+
+
 
       </View>
     );
@@ -64,7 +92,7 @@ const styles = StyleSheet.create ({
   	borderRadius: 30,
 		alignItems: 'center',
 		justifyContent:'center',
-		width: 300,
+    width: 300,
   },
   
   loginText: {
