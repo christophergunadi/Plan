@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Picker, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Picker, Alert, } from 'react-native';
 import TabBarIcon from '../components/TabBarIcon'
 import {List} from '../components/List'
 import { Input } from './../components/Input';
@@ -29,6 +29,7 @@ export default class PlanPage extends React.Component {
 
   onAddPress = () => {
     List.push({task: this.state.task, duration: this.state.duration, timeOfDay: this.state.timeOfDay});
+    Alert.alert('Task [' + this.state.task + '] added!', 'Go #plan your day!');
     console.log(List);
   }
   

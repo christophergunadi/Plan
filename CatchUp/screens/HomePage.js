@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Platform, View, Image, TouchableOpacity, Alert, } from 'react-native';
+import { StyleSheet, Text, View, Alert, } from 'react-native';
 import * as firebase from 'firebase';
 import TabBarIcon from '../components/TabBarIcon'
 import List from '../components/List'
@@ -132,10 +132,6 @@ export default class HomePage extends React.Component {
 					hide={this.state.isPlan}
 					text="back"
 				/>
-
-				{/* <TouchableOpacity style={styles.signOutButton} onPress={() => this.onSignOutPress()}>
-				 <Text> Sign Out </Text> 
-				</TouchableOpacity> */}
 			</View>
     );
   }
