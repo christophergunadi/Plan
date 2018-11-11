@@ -11,7 +11,8 @@ export default class PlanPage extends React.Component {
 
     this.state = {
       task: '',
-      duration: 0,
+      duration: 1,
+      timeOfDay: 'Morning',
     };
   }
 
@@ -27,7 +28,7 @@ export default class PlanPage extends React.Component {
   }
 
   onAddPress = () => {
-    List.push({task: this.state.task, duration: this.state.duration});
+    List.push({task: this.state.task, duration: this.state.duration, timeOfDay: this.state.timeOfDay});
     console.log(List);
   }
   
@@ -49,29 +50,33 @@ export default class PlanPage extends React.Component {
 			/>
 
       
-      <Text style={styles.loginText}>Select duration: </Text>
+      <Text style={styles.loginText}>How many hours do you need? </Text>
       <Picker
         selectedValue={this.state.duration}
         style={{ height: 200, width: 100}}
         onValueChange={(itemValue) => this.setState({duration: itemValue})}>
-        <Picker.Item label="0 h" value={0}/>
         <Picker.Item label="1 h" value={1}/>
         <Picker.Item label="2 h" value={2}/>
         <Picker.Item label="3 h" value={3}/>
         <Picker.Item label="4 h" value={4}/>
+        <Picker.Item label="5 h" value={5}/>
+      </Picker>
+
+      <Text style={styles.loginText}>When do you usually do them? </Text>
+      <Picker
+        selectedValue={this.state.timeOfDay}
+        style={{ height: 200, width: 100}}
+        onValueChange={(itemValue) => this.setState({timeOfDay: itemValue})}>
+        <Picker.Item label="Morning" value='Morning'/>
+        <Picker.Item label="Afternoon" value='Afternoon'/>
+        <Picker.Item label="Evening" value='Evening'/>
+        <Picker.Item label="Late night" value='Late night'/>
       </Picker>
       
 			
 			<TouchableOpacity style={styles.loginButton} onPress={this.onAddPress}>
 			  <Text style={styles.loginText}>Add</Text>
 			</TouchableOpacity>
-
-      <FlatList
-        data={List}
-        renderItem={({item}) => <Text style={styles.item}>task: {item.task}</Text>}
-      />
-
-
 
       </View>
     );

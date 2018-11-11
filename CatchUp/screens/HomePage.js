@@ -2,7 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, Platform, View, Image, TouchableOpacity, Alert, } from 'react-native';
 import * as firebase from 'firebase';
 import TabBarIcon from '../components/TabBarIcon'
-import {List} from '../components/List'
+import List from '../components/List'
+import { ProcessedList, Tasks, } from '../components/Processed'
+import PlanButton from '../components/PlanButton'
+import NavButton from '../components/NavButton'
+
+
 
 export default class HomePage extends React.Component {
 
@@ -13,6 +18,7 @@ export default class HomePage extends React.Component {
 		
 		this.state = {
 			slots: calendarSlots,
+			isPlan: true,
 		}
 	}	
 
@@ -27,20 +33,26 @@ export default class HomePage extends React.Component {
   ),
 	}
 
+	isPlanToggle = () => {
+		this.setState({isPlan: !this.state.isPlan});
+	}
+
   getLocalCalendar = async () => {
 	  const { Permissions } = Expo;
 		const { status, expires, permissions } = await Permissions.askAsync(Permissions.CALENDAR)
 		const currentDay = new Date();
+		console.log(currentDay);
 
 	  if (status === 'granted') {
 			const calendars = await Expo.Calendar.getCalendarsAsync();
 			const calendarIds = calendars.map(a => a.id);
-			const events = await Expo.Calendar.getEventsAsync(calendarIds, new Date(2018, 9), new Date(2018, 11));
+			const events = await Expo.Calendar.getEventsAsync(calendarIds, currentDay.setDate(currentDay.getDate()), currentDay.setDate(currentDay.getDate() + 1));
+			// const events = await Expo.Calendar.getEventsAsync(calendarIds, new Date(2018, 10), new Date(2018, 11));
 			events = events.filter(a => {return !a.allDay})
 
 			// debugging console logs:
-			// console.log("returning events that don't last all day.");
-			// console.log(events.map(a => {return {allDay: a.allDay, endDate: a.endDate, startDate: a.startDate, title: a.title};}));
+			console.log("returning events that don't last all day.");
+			console.log(events.map(a => {return {allDay: a.allDay, endDate: a.endDate, startDate: a.startDate, title: a.title};}));
 
 			const startTimes = events.map(a => {
 				return new Date(a.startDate).getHours();
@@ -48,13 +60,15 @@ export default class HomePage extends React.Component {
 			const endTimes = events.map(a => {
 				return new Date(a.endDate).getHours();
 			});
+			console.log("start " + startTimes + "end " + endTimes);
 
 
 			const slots = this.state.slots;
-			console.log(this.state.slots);
-			for (var i = 0; i < 24; i++) {
+			for (var i = 0; i < startTimes.length; i++) {
 				var start = startTimes[i];
 				var end = endTimes[i];
+				if (end == 0) {end = 24};
+				console.log("start " + start + "end " + end);
 				for (var j = start; j < end; j++) {
 					slots[j] = 1;
 				}
@@ -67,7 +81,10 @@ export default class HomePage extends React.Component {
 	}
 
 	suggestTimes = () => {
+		for (var i = 0; i < List.length; i++) {
+			var task = List[i];
 
+		}
 	}
 
 
@@ -87,14 +104,13 @@ export default class HomePage extends React.Component {
 	}
 		
   render() {
+
     return (
 			<View style={styles.container}>
-				<TouchableOpacity onPress={() => this.onPlan()}>
-					<Image 
-					  style={styles.logo}
-					  source={require('./../assets/planButton.png')} 
-					/>
-				</TouchableOpacity>
+
+				<PlanButton style={styles.logo} hide={!this.state.isPlan} onPress={() => this.onPlan()} />
+				<Tasks style={styles.taskButton} hide={this.state.isPlan} />
+
 				<TouchableOpacity style={styles.signOutButton} onPress={() => this.onSignOutPress()}>
 				 <Text> Sign Out </Text> 
 				</TouchableOpacity>
@@ -119,6 +135,17 @@ const styles = StyleSheet.create ({
 		marginTop: 20,
 		paddingHorizontal: 50,
 	},
+
+	taskButton: {
+  	backgroundColor: '#CDC6C6',
+  	height: 40,
+    margin: 20,
+		alignItems: 'baseline' ,
+		justifyContent:'center',
+		marginTop: 20,
+		paddingHorizontal: 50,
+	},
+
 	logo: {
 		justifyContent: 'center',
 		alignItems: 'center',
