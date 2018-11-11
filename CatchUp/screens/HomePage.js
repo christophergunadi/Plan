@@ -33,7 +33,7 @@ export default class HomePage extends React.Component {
   ),
 	}
 
-	isPlanToggle = () => {
+	toggleIsPlan = () => {
 		this.setState({isPlan: !this.state.isPlan});
 	}
 
@@ -91,7 +91,7 @@ export default class HomePage extends React.Component {
 
 	onPlan = () => {
 		this.getLocalCalendar();
-
+		this.toggleIsPlan();
 	}
 
 	onSignOutPress = () => {
@@ -108,12 +108,34 @@ export default class HomePage extends React.Component {
     return (
 			<View style={styles.container}>
 
-				<PlanButton style={styles.logo} hide={!this.state.isPlan} onPress={() => this.onPlan()} />
-				<Tasks style={styles.taskButton} hide={this.state.isPlan} />
+				<PlanButton 
+					style={styles.logo} 
+					hide={!this.state.isPlan} 
+					onPress={() => this.onPlan()} 
+				/>
 
-				<TouchableOpacity style={styles.signOutButton} onPress={() => this.onSignOutPress()}>
+				<NavButton 
+					style={styles.signOutButton} 
+					onPress={() => this.onSignOutPress()}
+					hide={!this.state.isPlan}
+					text="Sign Out"
+				/>
+
+				<Tasks 
+					style={styles.taskButton} 
+					hide={this.state.isPlan} 
+				/>
+
+				<NavButton
+					style={styles.signOutButton}
+					onPress={() => this.toggleIsPlan()}
+					hide={this.state.isPlan}
+					text="back"
+				/>
+
+				{/* <TouchableOpacity style={styles.signOutButton} onPress={() => this.onSignOutPress()}>
 				 <Text> Sign Out </Text> 
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 			</View>
     );
   }

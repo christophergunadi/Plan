@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, TouchableOpacity, 
+  View, TouchableOpacity, Text
 } from 'react-native';
 
 const NavButton = (props) => {
@@ -19,7 +19,6 @@ const NavButton = (props) => {
 NavButton.propTypes = {
   style: View.propTypes.style,
   hide: PropTypes.bool,
-  text: PropTypes.text,
 };
 
 export default NavButton;
